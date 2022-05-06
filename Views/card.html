@@ -1,0 +1,69 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'card/card.css' %}" />
+<div class="row row-cols-2">
+    <div class="col-md-3" style="text-align: center;">
+        <h4>Select One</h4>
+    </div>
+    <div class="col-md-4" style="text-align: center;">
+        <h4>Front</h4>
+    </div>
+    <div class="col-md-5" style="text-align: center;">
+        <h4>Back</h4>
+    </div>
+</div>
+<!-- table heading end -->
+<!-- first card start -->
+
+{% for x in cards %}
+<div class="row row-cols-2">
+    <div class="col-md-3" style="text-align: center;">
+        <form method="post" action="selectcard" name="card">
+            {% csrf_token %} <br><br>
+            <input type="hidden" name="card" value="{{x.cid}}" >
+            <input type="hidden" name="style" value="{{x.style}}">
+            <button type="submit" class="btn rounded-pill btn-outline-info">Select</button><br><br>
+            Price Rs
+            <span class="badge rounded-pill bg-warning"> {{ x.price }}</span><br>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <div class="visitingcard front ">
+            <div class="blue{{x.style}}"></div>
+            <div class="yellow{{x.style}}"></div>
+            <div class="pink{{x.style}}"></div>
+            <div class="dots"></div>
+            <div class="personal-intro">
+                <p>Krista Stone</p>
+                <p>Photographer Maker Doer</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="visitingcard back ">
+            <div class="yellow{{x.style}}"></div>
+            <div class="top dots"></div>
+            <div class="personal-info">
+                <p>
+                    Krista Stone<br>
+                    Photographer. Maker. Doer.<br>                        
+                    <br>
+                    123 Address St
+                    Sacramento, CA 14234
+                    567.890.1234
+                    <br><br>
+                    www.kristastone.com<br>
+                    @kristastone
+                </p>
+            </div>
+            <div class="bottom dots"></div>
+            <div class="pink{{x.style}}"></div>
+        </div>
+    </div>   
+</div>
+<div class="divider">
+    <div class="divider-text">--</div>
+</div>
+{% endfor %}
+<!-- first card end -->
+{% block card %}
+{% endblock %}

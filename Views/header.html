@@ -67,7 +67,7 @@
       <!-- Menu -->
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">  
         <div class="app-brand demo ">
-          <a href="index.html" class="app-brand-link">
+          <a href="/" class="app-brand-link">
             <span class="app-brand-logo demo">
               <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <defs>
@@ -111,7 +111,7 @@
         <div class="menu-inner-shadow"></div>
         <ul class="menu-inner py-1">
           <!-- Dashboard -->
-          <li class="menu-item {% ifequal pagenavigation 'home' %} active {% endifequal %}">
+          <li class="menu-item {% if pagenavigation == 'home' %} active {% endif %}">
             <a href="/" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
@@ -120,13 +120,13 @@
           <li class="menu-header small text-uppercase">
             <span class="menu-header-text">History</span>
           </li>
-          <li class="menu-item {% ifequal pagenavigation 'orderhistory' %} active {% endifequal %}">
+          <li class="menu-item {% if pagenavigation == 'orderhistory' %} active {% endif %}">
             <a href="/orderhistory" class="menu-link">
               <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
               <div data-i18n="Analytics">Order History</div>
             </a>
           </li>
-          <li class="menu-item {% ifequal pagenavigation 'profile' %} active {% endifequal %}">
+          <li class="menu-item {% if pagenavigation == 'profile' %} active {% endif %}">
             <a href="/profile" class="menu-link">
               <i class="bx bx-user me-2"></i>
               <div data-i18n="Analytics">My Profile</div>
@@ -166,9 +166,11 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                {% ifequal pagenavigation 'home' %} Choose your Best Visiting Card{% endifequal %}
-                {% ifequal pagenavigation 'profile' %} My Profile{% endifequal %}
-                {% ifequal pagenavigation 'orderhistory' %} Order History{% endifequal %}
+                {% if pagenavigation == 'home' %}
+                {% if msg == 'takedetail' %} Enter your card details {% else %}Choose your Best Visiting Card{% endif %}
+                {% endif %}
+                {% if pagenavigation == 'profile' %} My Profile{% endif %}
+                {% if pagenavigation == 'orderhistory' %} Order History{% endif %}
               
               </div>
             </div>

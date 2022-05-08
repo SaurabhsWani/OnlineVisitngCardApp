@@ -12,4 +12,5 @@ path('editprofile', editProfile, name='editprofile'),
 path('selectcard',EditCard,name='EditCard'),
 path('editcard',SaveEditedCard,name='EditCard'),
 path('orderhistory',UserOrderHistory,name='UserOrderHistory'),
+path('reorderCard',ReorderCard,name='reorderCard'),
 ]

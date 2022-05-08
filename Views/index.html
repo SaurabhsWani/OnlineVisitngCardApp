@@ -1,13 +1,34 @@
 {% extends 'header.html' %}
 {% block content %}
-{% for message in messages %}
-<div class="alert alert-success alert-dismissible" role="alert">
-    {{message}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-    </button>
+<!-- table heading start -->
+<div class="row row-cols-2">
+  <div class="col-md-3" style="text-align: center;">
+      <h4>Select One</h4>
   </div>
-{% endfor %}
+  <div class="col-md-4" style="text-align: center;">
+      <h4>Front</h4>
+  </div>
+  <div class="col-md-5" style="text-align: center;">
+      <h4>Back</h4>
+  </div>
+</div>
+<!-- table heading end -->
+<!-- card 0 -->
 {% include 'card.html' %}
 {% block card %}                    
 {% endblock card%}
+<!-- card 1 -->
+{% include 'card1.html' %}
+{% block card1 %}                    
+{% endblock card1%}
+<!-- card 2 -->
+{% include 'card2.html' %}
+{% block card2 %}                    
+{% endblock card2%}
+<!-- card 3 -->
+{% include 'card3.html' %}
+{% block card3 %}                    
+{% endblock card3%}
+<!-- card 4 -->
+
 {% endblock content %}

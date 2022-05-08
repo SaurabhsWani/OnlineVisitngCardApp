@@ -1,0 +1,62 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'card/card.css' %}" />
+<!-- first card start -->
+<div class="row row-cols-2">
+    <div class="col-md-1" style="text-align: center;"><br><br><br>
+        <form method="post" action="reorderCard" name="card">
+            {% csrf_token %}
+            <input type="hidden" name="oid" value="{{x.oid}}"/>
+            <button type="submit" class="btn rounded-pill btn-icon btn-warning">
+                <span class="tf-icons bx bx-cart"></span>
+            </button>
+        </form>
+    </div>
+    <div class="col-md-2" style="text-align: center;"><br><br><br>
+        Status
+        <span class="badge rounded-pill {% if x.ordstatus == 'success' %} bg-success {% else %} bg-danger {% endif %}">{{ x.ordstatus }} </span><br>
+        Price
+        <span class="badge rounded-pill bg-info"> {{ x.ucid.price_for_one }}</span><br>
+        Order Date
+        <span class="badge rounded-pill bg-warning"> {{ x.created_at|date:"d M Y" }} </span><br>
+        Totoal Amount
+        <span class="badge rounded-pill bg-success"> {{ x.ucid.totalAmount }} </span><br>
+        Quantity
+        <span class="badge rounded-pill bg-dark"> {{ x.ucid.quantity }} </span>
+    </div>
+    <div class="col-md-4">
+        <div class="visitingcard front ">
+            <div class="blue1"></div>
+            <div class="yellow1"></div>
+            <div class="pink1"></div>
+            <div class="dots"></div>
+            <div class="personal-intro">
+                <p>{{x.ucid.heading}}</p>
+                <p>{{x.ucid.subheading}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="visitingcard back ">
+            <div class="yellow1"></div>
+            <div class="top dots"></div>
+            <div class="personal-info">
+                <p>
+                    {{x.ucid.heading}}<br>
+                    {{x.ucid.subheading}}<br>                        
+                    <br>{{x.ucid.address}}
+                    <br><br>
+                    {{x.ucid.website}}<br>
+                    {{x.ucid.mobile}}
+                </p>
+            </div>
+            <div class="bottom dots"></div>
+            <div class="pink1"></div>
+        </div>
+    </div>   
+</div>
+<div class="divider">
+    <div class="divider-text">--</div>
+</div>
+<!-- first card end -->
+{% block card %}
+{% endblock %}

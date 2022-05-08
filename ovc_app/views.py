@@ -4,7 +4,22 @@ from django.contrib.auth.models import auth
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 User = get_user_model()
-
+#Reorder order
+def ReorderCard(request):
+    if request.user.is_authenticated:
+        pagenavigation='orderhistory'
+        oid=request.POST.get('oid')
+        print(oid)
+        userOrderHistory=OrderHistory.objects.filter(oid=oid)
+        userOrderHistory=userOrderHistory[0]
+        # UserEditedCardInformation=UserCardInformation.objects.filter(uCardIfoId=userOrderHistory.ucid)
+        UserOrderHistory=OrderHistory.objects.create(ucid=userOrderHistory.ucid,ordstatus='Pending')
+        UserOrderHistory.save()
+        messages.info(request,"Order Placed Again Successfully!")
+        return redirect('/orderhistory')
+    else:
+        pagenavigation='home'
+        return redirect('/',{'pagenavigation':pagenavigation})
 #about us view
 def about(request):
     return render(request, 'aboutus.html')
@@ -37,11 +52,34 @@ def profile(request):
 def UserOrderHistory(request):
     if request.user.is_authenticated:
         pagenavigation='orderhistory'
-        userOrderHistory=OrderHistory.objects.select_related('ucid').filter(ucid__uid=request.user.id)
+        userOrderHistory=OrderHistory.objects.filter(ucid__uid=request.user.id).order_by("created_at").reverse()
+        print(userOrderHistory[0].ordstatus)
         return render(request,'orderHistory.html',{'userOrderHistory':userOrderHistory,'pagenavigation':pagenavigation})
     else:
         pagenavigation='home'
         return redirect('/',{'pagenavigation':pagenavigation})
+# edit given card view
+def EditCard(request):
+    if request.user.is_authenticated and request.POST.get('card') != None:
+        pagenavigation='home'
+        card=request.POST.get('card')
+        price=request.POST.get('price')
+        heading=request.POST.get('heading')
+        subheading=request.POST.get('subheading')
+        address=request.POST.get('address')
+        website=request.POST.get('website')
+        phone=request.POST.get('phone')
+        quantity=request.POST.get('quantity')
+        totalAmount=int(quantity)*int(price)
+        UserEditedCardInformation=UserCardInformation.objects.create(heading=heading,subheading=subheading,address=address,website=website,mobile=phone,cid=card,uid=request.user.id,quantity=quantity,totalAmount=totalAmount,price_for_one=price)
+        UserEditedCardInformation.save() 
+        UserOrderHistory=OrderHistory.objects.create(ucid=UserEditedCardInformation,ordstatus='pending')
+        UserOrderHistory.save()
+        messages.info(request,"Card Ordered Successfully Created Succesfully!")
+        return redirect('/orderhistory')
+        # return render(request,'singleCard.html',{'card':card,'style':price,'pagenavigation':pagenavigation})
+    else:
+        return redirect('login')
 #save edited card view
 def SaveEditedCard(request):
     if request.user.is_authenticated:
@@ -51,33 +89,34 @@ def SaveEditedCard(request):
         address=request.POST.get('address')
         website=request.POST.get('website')
         phone=request.POST.get('phone')
-        card=request.POST.get('card')
-        cid=Card.objects.filter(cid=card)
-        cid=cid[0] 
-        uid=request.user.id
-        UserEditedCardInformation=UserCardInformation.objects.create(heading=heading,subheading=subheading,address=address,website=website,mobile=phone,cid=cid,uid=uid)
-        UserEditedCardInformation.save() 
-        UserOrderHistory=OrderHistory.objects.create(ucid=UserEditedCardInformation,ordstatus='Pending')
-        UserOrderHistory.save()
-        messages.info(request,"Card Ordered Successfully Created Succesfully!")
-        return redirect('/',{'pagenavigation':pagenavigation})
-    else:
-        return redirect('login')
-# edit given card view
-def EditCard(request):
-    if request.user.is_authenticated and request.POST.get('card') != None:
-        pagenavigation='home'
-        card=request.POST.get('card')
-        style=request.POST.get('style')
-        return render(request,'singleCard.html',{'card':card,'style':style,'pagenavigation':pagenavigation})
+        quantity=request.POST.get('quantity')
+        print(heading)
+        print(subheading)
+        print(address)
+        print(website)
+        print(phone)
+        print(quantity)
+        # cid=Card.objects.filter(cid=card)
+        # cid=cid[0] 
+        # UserEditedCardInformation=UserCardInformation.objects.create(heading=heading,subheading=subheading,address=address,website=website,mobile=phone,cid=cid,uid=uid)
+        # UserEditedCardInformation.save() 
+        # UserOrderHistory=OrderHistory.objects.create(ucid=UserEditedCardInformation,ordstatus='Pending')
+        # UserOrderHistory.save()
+        # messages.info(request,"Card Ordered Successfully Created Succesfully!")
+        return render(request,'index.html',{'pagenavigation':pagenavigation,'heading':heading,
+'subheading':subheading,
+'address':address,
+'website':website,
+'phone':phone,
+'quantity':quantity,})
     else:
         return redirect('login')
 # Home Page VIew
 def HomePageView(request):
     if request.user.is_authenticated:
         pagenavigation='home'
-        cards = Card.objects.all()
-        return render(request,'index.html',{'cards':cards,'pagenavigation':pagenavigation})
+        return render(request,'singleCard.html',{'pagenavigation':pagenavigation,'msg':'takedetail'})
+        # return render(request,'index.html',{'pagenavigation':pagenavigation})
     else:
         return redirect('login')
 # Logout view 

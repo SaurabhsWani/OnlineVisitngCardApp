@@ -1,0 +1,38 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'card/card1.css' %}" />
+<div class="row row-cols-2">
+    <div class="col-md-3" style="text-align: center;">
+        <form method="post" action="selectcard" name="card">
+            {% csrf_token %} <br><br>
+            <input type="hidden" name="card" value="1" >
+            <input type="hidden" name="price" value="200" >
+            <input type="hidden" name="heading" value="{{heading}}" />
+            <input type="hidden" name="subheading" value="{{subheading}}" />
+            <input type="hidden" name="address" value="{{address}}" />
+            <input type="hidden" name="website" value="{{website}}" />
+            <input type="hidden" name="phone" value="{{phone}}" />
+            <input type="hidden" name="quantity" value="{{quantity}}" />
+            <button type="submit" class="btn rounded-pill btn-outline-info">Select</button><br><br>
+            Price Rs
+            <span class="badge rounded-pill bg-warning">200</span><br>
+        </form>
+    </div>
+    <div class="col-md-9 container-sm" >
+        <div class='business-cardd'>
+            <div class='bc__logo'>
+              <h2>{{heading}}</h2>
+            </div>
+            <div class='bc__tagline'>
+              <p>{{subheading}}</p>
+              <p>{{phone}}</p>
+              <p>{{website}}</p>
+              <p>{{address}}</p>
+            </div>
+          </div>
+    </div>
+</div>
+<div class="divider">
+    <div class="divider-text">--</div>
+</div>
+{% block card1 %}
+{% endblock %}

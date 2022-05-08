@@ -1,69 +1,48 @@
 {% extends 'header.html' %}
 {% block content %}
 {% load static %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible" role="alert">
+    {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    </button>
+  </div>
+{% endfor %}
 <link rel="stylesheet" href="{% static 'card/card.css' %}" />
 <!-- {{userOrderHistory}} -->
-
-
 <div class="row row-cols-2">
-    <div class="col-md-3" style="text-align: center;">
-        <h4>Details</h4>
+    <div class="col-md-1" style="text-align: center;">
+        <h5>ReOrder</h5>
     </div>
-    <div class="col-md-4" style="text-align: center;">
-        <h4>Front</h4>
+    <div class="col-md-2" style="text-align: center;">
+        <h5>Details</h5>
     </div>
-    <div class="col-md-5" style="text-align: center;">
-        <h4>Back</h4>
+    <div class="col-md-9" style="text-align: center;">
+        <h5>Card</h5>
     </div>
 </div>
 {% for x in userOrderHistory %}
-<div class="row">
-    <div class="col-md-3">
-        <br>
-        <br>
-        <br>
-        Status
-        <span class="badge rounded-pill {% ifequal x.ordstatus 'success' %} bg-success {% else %} bg-danger {% endifequal %}">{{ x.ordstatus }} </span><br>
-        Price
-        <span class="badge rounded-pill bg-info"> {{ x.ucid.cid.price }}</span><br>
-        Order Date
-        <span class="badge rounded-pill bg-warning"> {{ x.created_at|date:"d M Y" }} </span>
-    </div>
-    <div class="col-md-4">
-        <div class="visitingcard front ">
-            <div class="blue{{x.ucid.cid.style}}"></div>
-            <div class="yellow{{x.ucid.cid.style}}"></div>
-            <div class="pink{{x.ucid.cid.style}}"></div>
-            <div class="dots"></div>
-            <div class="personal-intro">
-                <p>{{ x.ucid.heading }}</p>
-                <p>{{ x.ucid.subheading }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="visitingcard back ">
-            <div class="yellow{{x.ucid.cid.style}}"></div>
-            <div class="top dots"></div>
-            <div class="personal-info">
-                <p>
-                    {{ x.ucid.heading }}<br>
-                    {{ x.ucid.subheading }}<br>                        
-                    <br>{{ x.ucid.address }}
-                    <br><br>
-                    {{ x.ucid.website }}<br>
-                    {{ x.ucid.mobile }}
-                </p>
-            </div>
-            <div class="bottom dots"></div>
-            <div class="pink{{x.ucid.cid.style}}"></div>
-        </div>
-    </div>       
-</div>
-<div class="divider">
-    <div class="divider-text">--</div>
-</div>
+{% if x.ucid.cid == 0 %}
+<!-- card 0 -->
+{% include 'CardForOrderHistory/card.html' %}
+{% block card %}                    
+{% endblock card%}
+{% elif x.ucid.cid == 1 %}
+<!-- card 1 -->
+{% include 'CardForOrderHistory/card1.html' %}
+{% block card1 %}                    
+{% endblock card1%}
+{% elif x.ucid.cid == 2 %}
+<!-- card 2 -->
+{% include 'CardForOrderHistory/card2.html' %}
+{% block card2 %}                    
+{% endblock card2%}
+{% elif x.ucid.cid == 3 %}
+<!-- card 3 -->
+{% include 'CardForOrderHistory/card3.html' %}
+{% block card3 %}                    
+{% endblock card3%}
+{% endif %}
+<!-- card 4 -->
 {% endfor %}
-{% block card %}
-{% endblock %}
 {% endblock content %}

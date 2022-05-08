@@ -1,12 +1,12 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'card/card1.css' %}" />
+<link rel="stylesheet" href="{% static 'card/card.css' %}" />
 <!-- first card start -->
 <div class="row row-cols-2">
     <div class="col-md-3" style="text-align: center;">
         <form method="post" action="selectcard" name="card">
             {% csrf_token %} <br><br>
-            <input type="hidden" name="card" value="0" >
-            <input type="hidden" name="price" value="100" >
+            <input type="hidden" name="card" value="3" >
+            <input type="hidden" name="price" value="400" >
             <input type="hidden" name="heading" value="{{heading}}" />
             <input type="hidden" name="subheading" value="{{subheading}}" />
             <input type="hidden" name="address" value="{{address}}" />
@@ -15,14 +15,14 @@
             <input type="hidden" name="quantity" value="{{quantity}}" />
             <button type="submit" class="btn rounded-pill btn-outline-info">Select</button><br><br>
             Price Rs
-            <span class="badge rounded-pill bg-warning">100</span><br>
+            <span class="badge rounded-pill bg-warning">400</span><br>
         </form>
     </div>
     <div class="col-md-4">
         <div class="visitingcard front ">
-            <div class="blue0"></div>
-            <div class="yellow0"></div>
-            <div class="pink0"></div>
+            <div class="blue1"></div>
+            <div class="yellow1"></div>
+            <div class="pink1"></div>
             <div class="dots"></div>
             <div class="personal-intro">
                 <p>{{heading}}</p>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-5">
         <div class="visitingcard back ">
-            <div class="yellow0"></div>
+            <div class="yellow1"></div>
             <div class="top dots"></div>
             <div class="personal-info">
                 <p>
@@ -45,7 +45,7 @@
                 </p>
             </div>
             <div class="bottom dots"></div>
-            <div class="pink0"></div>
+            <div class="pink1"></div>
         </div>
     </div>   
 </div>

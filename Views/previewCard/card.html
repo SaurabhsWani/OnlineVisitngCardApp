@@ -1,0 +1,106 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'card/card.css' %}" />
+<!-- first card start -->
+<div class="row row-cols-2">
+    <div class="col-md-6">
+        <div class="visitingcard front ">
+            <div class="blue0"></div>
+            <div class="yellow0"></div>
+            <div class="pink0"></div>
+            <div class="dots"></div>
+            <div class="personal-intro">
+                <p>{{heading}}</p>
+                <p>{{subheading}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="visitingcard back ">
+            <div class="yellow0"></div>
+            <div class="top dots"></div>
+            <div class="personal-info">
+                <p>
+                    {{heading}}<br>
+                    {{subheading}}<br>                        
+                    <br>{{address}}
+                    <br><br>
+                    {{website}}<br>
+                    {{phone}}
+                </p>
+            </div>
+            <div class="bottom dots"></div>
+            <div class="pink0"></div>
+        </div>
+    </div>   
+</div>
+<div class="divider">
+    <div class="divider-text">--</div>
+</div>
+<!-- first card end -->
+<div class="row row-cols-2">
+    <div class="col-md-12" style="text-align: center;">
+        <div class="card mb-4">
+            <h5 class="card-header">Information to be printed on card</h5>
+            <form method="post" action="finalorder" name="editcard">
+                {% csrf_token %}  
+                Price&emsp;<span class="badge rounded-pill bg-warning">{{ price }}</span>
+                <input type="hidden" name="price" value="{{price}}"/>
+                <input type="hidden" name="card" value="{{card}}"/>
+                <div class="card-body demo-vertical-spacing demo-only-element">               
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon11">Headline</span>
+                        <input type="text" value="{{heading}}" class="form-control" placeholder="Heading" aria-label="Heading" name="heading" aria-describedby="basic-addon11" required/>
+                    </div>                
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon11">Sub Headline</span>
+                        <input type="text" value="{{subheading}}" class="form-control" placeholder="Sub Heading" aria-label="Sub Heading" name="subheading" aria-describedby="basic-addon11" required/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text">Address</span>
+                        <textarea  class="form-control" aria-label="With textarea" placeholder="{{address}}" name="address" required>{{address}}</textarea>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon14">https://example.com/users/</span>
+                        <input type="text" value="{{website}}" class="form-control" placeholder="URL" name="website" id="basic-url1" aria-describedby="basic-addon14" required/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text" id="html5-tel-input">Phone</span>
+                        <input class="form-control" value="{{phone}}" type="tel" name="phone" placeholder="90-(164)-188-556"  aria-describedby="html5-tel-input" required/>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-text" id="html5-tel-input">Quantity</span>
+                        <input class="form-control" id="qtty" value="{{quantity}}" type="number" name="quantity" placeholder="Ex. 50"  aria-describedby="html5-tel-input" required/>
+                    </div>
+                    <button class="btn btn-xs btn-info" onclick="myFunction()" type="button">Calculate Total</button><br>
+                    Total Amount&emsp;<span id="total" class="badge rounded-pill bg-info">{{ totalAmount }}</span>
+                    <script>
+                        function myFunction() {
+                            var y = document.getElementById("qtty").value;
+                            var z = "{{ price }}";
+                            var x = y * z;
+                            document.getElementById("total").innerHTML = x;
+                        }
+                    </script>
+                    <!-- <button class="btn btn-primary d-grid w-100" type="submit">Done & Select Design</button> -->
+                    <button class="btn btn-primary d-grid w-100" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Pay Now</button>
+                </div>
+                <!-- <button class="btn btn-primary d-grid w-100" type="submit">Done & Place Order</button> -->                
+                <div class="mt-3">                    
+                    <div class="offcanvas" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+                        <div class="offcanvas-header">
+                            <h5 id="offcanvasTopLabel" class="offcanvas-title">Order Summary</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <p>Your order will be placed withhin 4-5 working days, payment mode is offline. When you receive your order you can pay at that time.</p>
+                            <button type="submit" class="btn btn-primary me-2">Continue</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% block card %}
+{% endblock %}

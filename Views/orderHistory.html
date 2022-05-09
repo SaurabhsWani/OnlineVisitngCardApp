@@ -6,43 +6,52 @@
     {{message}}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
     </button>
-  </div>
+</div>
 {% endfor %}
 <link rel="stylesheet" href="{% static 'card/card.css' %}" />
-<!-- {{userOrderHistory}} -->
-<div class="row row-cols-2">
-    <div class="col-md-1" style="text-align: center;">
-        <h5>ReOrder</h5>
+
+<div class="card">
+    {% if userOrderHistory.count == 0 %}
+    <div class="alert alert-info" role="alert">
+        No order histry found!<br><br> 
+        <a href="/"><button class="btn btn-outline-info">  Order Now</button></a>
     </div>
-    <div class="col-md-2" style="text-align: center;">
-        <h5>Details</h5>
+    {% else %}<br>
+    <div class="row row-cols-2">
+        <div class="col-md-1" style="text-align: center;">
+            <h6>Reorder </h6>
+        </div>
+        <div class="col-md-2" style="text-align: center;">
+            <h5>Details</h5>
+        </div>
+        <div class="col-md-9" style="text-align: center;">
+            <h5>Card</h5>
+        </div>
     </div>
-    <div class="col-md-9" style="text-align: center;">
-        <h5>Card</h5>
-    </div>
+    {% endif %}
+    {% for x in userOrderHistory %}
+    {% if x.ucid.cid == 0 %}
+    <!-- card 0 -->
+    {% include 'CardForOrderHistory/card.html' %}
+    {% block card %}                    
+    {% endblock card%}
+    {% elif x.ucid.cid == 1 %}
+    <!-- card 1 -->
+    {% include 'CardForOrderHistory/card1.html' %}
+    {% block card1 %}                    
+    {% endblock card1%}
+    {% elif x.ucid.cid == 2 %}
+    <!-- card 2 -->
+    {% include 'CardForOrderHistory/card2.html' %}
+    {% block card2 %}                    
+    {% endblock card2%}
+    {% elif x.ucid.cid == 3 %}
+    <!-- card 3 -->
+    {% include 'CardForOrderHistory/card3.html' %}
+    {% block card3 %}                    
+    {% endblock card3%}
+    {% endif %}
+    <!-- card 4 -->
+    {% endfor %}
 </div>
-{% for x in userOrderHistory %}
-{% if x.ucid.cid == 0 %}
-<!-- card 0 -->
-{% include 'CardForOrderHistory/card.html' %}
-{% block card %}                    
-{% endblock card%}
-{% elif x.ucid.cid == 1 %}
-<!-- card 1 -->
-{% include 'CardForOrderHistory/card1.html' %}
-{% block card1 %}                    
-{% endblock card1%}
-{% elif x.ucid.cid == 2 %}
-<!-- card 2 -->
-{% include 'CardForOrderHistory/card2.html' %}
-{% block card2 %}                    
-{% endblock card2%}
-{% elif x.ucid.cid == 3 %}
-<!-- card 3 -->
-{% include 'CardForOrderHistory/card3.html' %}
-{% block card3 %}                    
-{% endblock card3%}
-{% endif %}
-<!-- card 4 -->
-{% endfor %}
 {% endblock content %}

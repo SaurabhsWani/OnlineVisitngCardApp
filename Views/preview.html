@@ -1,0 +1,29 @@
+{% extends 'header.html' %}
+{% block content %}
+<!-- table heading start -->
+<!-- table heading end -->
+
+{% if card == '0' %}
+<!-- card 0 -->
+{% include 'previewCard/card.html' %}
+{% block card %}                    
+{% endblock card %}
+<!-- card 1 -->
+{% elif card == '1' %}
+{% include 'previewCard/card1.html' %}
+{% block card1 %}                    
+{% endblock card1%}
+<!-- card 2 -->
+{% elif card == '2' %}
+{% include 'previewCard/card2.html' %}
+{% block card2 %}                    
+{% endblock card2%}
+<!-- card 3 -->
+{% elif card == '3' %}
+{% include 'previewCard/card3.html' %}
+{% block card3 %}                    
+{% endblock card3%}
+<!-- card 4 -->
+{% endif %}
+
+{% endblock content %}

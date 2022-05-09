@@ -13,4 +13,6 @@ path('selectcard',EditCard,name='EditCard'),
 path('editcard',SaveEditedCard,name='EditCard'),
 path('orderhistory',UserOrderHistory,name='UserOrderHistory'),
 path('reorderCard',ReorderCard,name='reorderCard'),
+path('preview',preview,name='preview'),
+path('finalorder',FinalSaveOrder,name='FinalSaveOrder')
 ]

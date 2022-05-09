@@ -1,10 +1,15 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'card/card2.css' %}" />
 <div class="row row-cols-2">
-    <div class="col-md-1" style="text-align: center;"><br><br><br>
+    <div class="col-md-2" style="text-align: center;"><br><br><br>
         <form method="post" action="reorderCard" name="card">
             {% csrf_token %}
             <input type="hidden" name="oid" value="{{x.oid}}"/>
+            <center>
+              <div class="col-md-6">
+                <input class="form-control" type="number" name="qtyt" value="{{x.ucid.quantity}}" id="html5-email-input" />
+              </div>
+            </center>
             <button type="submit" class="btn rounded-pill btn-icon btn-warning">
                 <span class="tf-icons bx bx-cart"></span>
             </button>
@@ -22,7 +27,7 @@
         Quantity
         <span class="badge rounded-pill bg-dark"> {{ x.ucid.quantity }} </span>
     </div>
-    <div class="col-md-9 container-sm" >
+    <div class="col-md-8 container-sm" >
         <div class="display">
             <div class="display-item">
                 <div class="business-card">
